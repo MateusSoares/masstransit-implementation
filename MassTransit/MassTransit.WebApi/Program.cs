@@ -11,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var serviceBusConnection = builder.Configuration.GetConnectionString("ServiceBus");
+
 builder.Services.AddMassTransit(x =>
 {
     x.SetDefaultEndpointNameFormatter();
@@ -19,8 +21,10 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<CreateOrderBillingConsumer>();
     x.AddConsumer<UpdateOrderItemsConsumer>();
 
-    x.UsingInMemory((context, cfg) => 
+    x.UsingAzureServiceBus((context, cfg) => 
     {
+        cfg.Host(serviceBusConnection);
+
         cfg.ConfigureEndpoints(context);
     });
 });
