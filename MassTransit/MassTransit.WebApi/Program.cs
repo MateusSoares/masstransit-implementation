@@ -1,3 +1,6 @@
+using MassTransit;
+using MassTransit.WebApi.Consumers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddMassTransit(x =>
+{
+    x.SetDefaultEndpointNameFormatter();
+
+    x.AddConsumer<OrderCreateConsumer>();
+
+    x.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+});
+
 
 var app = builder.Build();
 
