@@ -1,6 +1,6 @@
 ﻿namespace MassTransit.WebApi.Messages
 {
-    public class Order
+    public class CreateOrder
     {
         public Guid Id { get; set; }
     }

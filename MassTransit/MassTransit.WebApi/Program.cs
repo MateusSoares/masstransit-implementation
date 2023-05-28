@@ -1,5 +1,6 @@
 using MassTransit;
 using MassTransit.WebApi.Consumers;
+using MassTransit.WebApi.Messages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +15,14 @@ builder.Services.AddMassTransit(x =>
 {
     x.SetDefaultEndpointNameFormatter();
 
-    x.AddConsumer<OrderCreateConsumer>();
+    x.AddConsumer<CreateOrderConsumer>();
+    x.AddConsumer<CreateOrderBillingConsumer>();
+    x.AddConsumer<UpdateOrderItemsConsumer>();
 
-    x.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+    x.UsingInMemory((context, cfg) => 
+    {
+        cfg.ConfigureEndpoints(context);
+    });
 });
 
 

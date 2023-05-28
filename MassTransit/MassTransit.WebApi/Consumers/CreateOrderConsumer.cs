@@ -2,9 +2,9 @@
 
 namespace MassTransit.WebApi.Consumers
 {
-    public class OrderCreateConsumer : IConsumer<Order>
+    public class CreateOrderConsumer : IConsumer<CreateOrder>
     {
-        public Task Consume(ConsumeContext<Order> context)
+        public Task Consume(ConsumeContext<CreateOrder> context)
         {
             Console.WriteLine($"Identificador do pedido: {context.Message.Id}");
             return Task.CompletedTask;
