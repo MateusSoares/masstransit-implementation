@@ -27,7 +27,7 @@ namespace MassTransit.WebApi.Controllers
         [HttpPost("ConfirmOrder", Name = "ConfirmOrder")]
         public async void Post([FromBody] Guid orderId)
         {
-            await _bus.Publish(new ConfirmOrder { Id = orderId });
+            await _bus.Publish(new ConfirmOrder { Id = orderId, Number = 8 });
         }
     }
 }
